@@ -63,8 +63,6 @@ app.post('/overviewPage', urlEncodedParser, function (request, response) {
       }
     }
   }
-
-  //check if room is valid
 });
 
 app.get('/overviewPage', urlEncodedParser, function (request, response) {
@@ -72,5 +70,5 @@ app.get('/overviewPage', urlEncodedParser, function (request, response) {
 });
 
 app.listen(port, () => {
-  console.log(Server is listening on port ${port});
+  console.log(`Server is listening on port ${port}`);
 });
