@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 let users = [
     {
         "name":"nsalim",
@@ -9,15 +7,6 @@ let users = [
     }
 ]
 
-function checkEmailExists(email){
-    newUsers = users.filter((user) => user.email === email);
-    if(newUsers.length>0){
-        return ("Email already exists!")
-    }
-    else{
-        return ("Email doesn't exist!")
-    }
-}
 function checkNameExists(name){
     newUsers = users.filter((user) => user.name === name);
     if(newUsers.length>0){
@@ -28,4 +17,24 @@ function checkNameExists(name){
     }
 }
 
-module.exports = {checkEmailExists, checkNameExists};
+function checkEmailExists(email){
+    newUsers = users.filter((user) => user.email === email);
+    if(newUsers.length>0){
+        return ("Email already exists!")
+    }
+    else{
+        return ("Email doesn't exist!")
+    }
+}
+
+function checkEmailUSIU(email){
+    let split_domain = email.split("@")[1]
+    if(split_domain==="usiu.ac.ke"){
+        return ("Valid email!")
+    }
+    else{
+        return ("Invalid email!")
+    }
+}
+
+module.exports = {checkNameExists, checkEmailExists, checkEmailUSIU};
