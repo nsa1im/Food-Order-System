@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const { v4: uuidv4 } = require('uuid');
-const {checkEmailExists, checkNameExists} = require('./validate');
+const {checkNameExists, checkEmailExists, checkEmailUSIU} = require('./validate');
 
 app.set('views', 'views');
 app.set('view engine', 'hbs');
@@ -16,30 +16,38 @@ app.get('/', function (request, response) {
 });
 
 app.post('/overviewPage', urlEncodedParser, function (request, response) {
-  const email = request.body.email;
   const name = request.body.username;
+  const email = request.body.email;
   const password = request.body.password;
   const room = parseInt(request.body.room);
 
   let verify_Name = checkNameExists(name);
   let verify_Email = checkEmailExists(email);
+  let verify_USIU_Email = checkEmailUSIU(email);
 
-  if (verify_Email==="Email already exists!"){
+  if(verify_Name==="Name already exists!"){
     response.render('home', {
-      errorMessage: 'Email already exists!',
+      errorMessage: 'Username already exists!',
     });
   }
-  else if (verify_Email==="Email doesn't exist!"){
-    if(verify_Name==="Name already exists!"){
+  else if(verify_Name==="Name doesn't exist!"){
+    if(verify_Email==="Email already exists!"){
       response.render('home', {
-        errorMessage: 'Username already exists!',
+        errorMessage: 'Email already exists!',
       });
     }
     else{
-      response.render('overviewPage');
+      if(verify_USIU_Email==="Invalid email!"){
+        response.render('home', {
+          errorMessage: 'Wrong email format!',
+        });
+      }
+      else{
+        response.render('overviewPage');
+      }
     }
   }
-  //check if email is USIU email
+
   //check if password is 8 characters
   //check if room is valid
 });
@@ -47,7 +55,6 @@ app.post('/overviewPage', urlEncodedParser, function (request, response) {
 app.get('/overviewPage', urlEncodedParser, function (request, response) {
     response.render('overviewPage');
 });
-
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
