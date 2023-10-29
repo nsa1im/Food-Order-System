@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const { v4: uuidv4 } = require('uuid');
-const {checkNameExists, checkEmailExists, checkEmailUSIU} = require('./validate');
+const {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword} = require('./validate');
 
 app.set('views', 'views');
 app.set('view engine', 'hbs');
@@ -24,6 +24,7 @@ app.post('/overviewPage', urlEncodedParser, function (request, response) {
   let verify_Name = checkNameExists(name);
   let verify_Email = checkEmailExists(email);
   let verify_USIU_Email = checkEmailUSIU(email);
+  let verify_Password = checkPassword(password);
 
   if(verify_Name==="Name already exists!"){
     response.render('home', {
@@ -43,12 +44,17 @@ app.post('/overviewPage', urlEncodedParser, function (request, response) {
         });
       }
       else{
-        response.render('overviewPage');
+        if(verify_Password==="Wrong!"){
+          response.render('home', {
+            errorMessage: 'Password must be at least 8 characters long!',
+          });
+        }
+        else{
+          response.render('overviewPage');
+        }
       }
     }
   }
-
-  //check if password is 8 characters
   //check if room is valid
 });
 
