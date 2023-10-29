@@ -37,4 +37,13 @@ function checkEmailUSIU(email){
     }
 }
 
-module.exports = {checkNameExists, checkEmailExists, checkEmailUSIU};
+function checkPassword(password){
+    if(password.length >= 8){
+        return ("Right!")
+    }
+    else{
+        return ("Wrong!")
+    }
+}
+
+module.exports = {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword};
