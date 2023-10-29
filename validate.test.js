@@ -1,4 +1,4 @@
-const {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword} = require('./validate');     
+const {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom} = require('./validate');     
 
 test('checkNameExists: eadwera does not exist', () => {
     expect(checkNameExists('eadwera')).toBe("Name doesn't exist!");
@@ -29,4 +29,17 @@ test('checkPassword: 12345678 is 8 characters long', () => {
 }); 
 test('checkPassword: 123456789 is more than 8 characters long', () => {
     expect(checkPassword('123456789')).toBe("Right!");
+}); 
+
+test('checkRoom: 99 is not a valid room', () => {
+    expect(checkRoom(99)).toBe("Wrong!");
+});
+test('checkRoom: 999 is not a valid room', () => {
+    expect(checkRoom(999)).toBe("Wrong!");
+});
+test('checkRoom: 801 is a valid room', () => {
+    expect(checkRoom(801)).toBe("Right!");
+});
+test('checkRoom: 8010 is not a valid room', () => {
+    expect(checkRoom(8010)).toBe("Wrong!");
 });
