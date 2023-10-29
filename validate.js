@@ -1,20 +1,22 @@
-function checkEmailNotExists(email){
-    fs.readFile('users.json', 'utf8', function (err, data) {
-        if (err) {
-            console.log(err);
-            response.status(500).send({ error: 'Internal server error' });
-        } 
-        else {
-            let users = JSON.parse(data);
-            users = users.filter((user) => user.email !== email);
-            const json = JSON.stringify(users, null, 2);
-            if(json.length >= 0){
-                return "Email already exists!"
-            }
-            else{
-                return "Email doesn't exist!"
-            }
-        }
-    })
+const fs = require('fs');
+
+let users = [
+    {
+        "name":"nsalim",
+        "email":"nsalim@usiu.ac.ke",
+        "password":123,
+        "room": 216
+    }
+]
+
+function checkEmailExists(email){
+    newUsers = users.filter((user) => user.email === email);
+    if(newUsers.length>0){
+        return ("Email already exists!")
+    }
+    else{
+        return ("Email doesn't exist!")
+    }
 }
-module.exports = {checkEmailNotExists};
+
+module.exports = {checkEmailExists};
