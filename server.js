@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const { v4: uuidv4 } = require('uuid');
-const {checkEmailExists} = require('./validate');
+const {checkEmailExists, checkNameExists} = require('./validate');
 
 app.set('views', 'views');
 app.set('view engine', 'hbs');
@@ -16,21 +16,29 @@ app.get('/', function (request, response) {
 });
 
 app.post('/overviewPage', urlEncodedParser, function (request, response) {
-  const name = request.body.name;
   const email = request.body.email;
+  const name = request.body.username;
   const password = request.body.password;
   const room = parseInt(request.body.room);
 
+  let verify_Name = checkNameExists(name);
   let verify_Email = checkEmailExists(email);
+
   if (verify_Email==="Email already exists!"){
     response.render('home', {
-      errorMessage: 'Email aready exists.',
+      errorMessage: 'Email already exists!',
     });
   }
   else if (verify_Email==="Email doesn't exist!"){
-    response.render('overviewPage');
+    if(verify_Name==="Name already exists!"){
+      response.render('home', {
+        errorMessage: 'Username already exists!',
+      });
+    }
+    else{
+      response.render('overviewPage');
+    }
   }
-  //check if name exists
   //check if email is USIU email
   //check if password is 8 characters
   //check if room is valid
@@ -39,6 +47,7 @@ app.post('/overviewPage', urlEncodedParser, function (request, response) {
 app.get('/overviewPage', urlEncodedParser, function (request, response) {
     response.render('overviewPage');
 });
+
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
