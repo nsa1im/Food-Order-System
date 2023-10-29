@@ -18,5 +18,14 @@ function checkEmailExists(email){
         return ("Email doesn't exist!")
     }
 }
+function checkNameExists(name){
+    newUsers = users.filter((user) => user.name === name);
+    if(newUsers.length>0){
+        return ("Name already exists!")
+    }
+    else{
+        return ("Name doesn't exist!")
+    }
+}
 
-module.exports = {checkEmailExists};
+module.exports = {checkEmailExists, checkNameExists};
