@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const { v4: uuidv4 } = require('uuid');
-const {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword} = require('./validate');
+const {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom} = require('./validate');
 
 app.set('views', 'views');
 app.set('view engine', 'hbs');
@@ -25,6 +25,7 @@ app.post('/overviewPage', urlEncodedParser, function (request, response) {
   let verify_Email = checkEmailExists(email);
   let verify_USIU_Email = checkEmailUSIU(email);
   let verify_Password = checkPassword(password);
+  let verify_Room = checkRoom(room);
 
   if(verify_Name==="Name already exists!"){
     response.render('home', {
@@ -50,11 +51,19 @@ app.post('/overviewPage', urlEncodedParser, function (request, response) {
           });
         }
         else{
-          response.render('overviewPage');
+          if(verify_Room==="Wrong!"){
+            response.render('home', {
+              errorMessage: 'No such room!',
+            });
+          }
+          else{
+            response.render('overviewPage');
+          }
         }
       }
     }
   }
+
   //check if room is valid
 });
 
@@ -63,5 +72,5 @@ app.get('/overviewPage', urlEncodedParser, function (request, response) {
 });
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+  console.log(Server is listening on port ${port});
 });
