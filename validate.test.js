@@ -1,4 +1,4 @@
-const {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom} = require('./validate');     
+const {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom, calculatePrice} = require('./validate');     
 
 test('checkNameExists: eadwera does not exist', () => {
     expect(checkNameExists('eadwera')).toBe("Name doesn't exist!");
@@ -42,4 +42,26 @@ test('checkRoom: 801 is a valid room', () => {
 });
 test('checkRoom: 8010 is not a valid room', () => {
     expect(checkRoom(8010)).toBe("Wrong!");
+});
+
+test('calculatePrice: Kshs. 100 by 3 items', () => {
+    expect(calculatePrice(100, 3)).toBe(300);
+});
+test('calculatePrice: Kshs. -10 by 10 items', () => {
+    expect(calculatePrice(-10, 10)).toBe("Invalid price!");
+});
+test('calculatePrice: Kshs. 0 by 10 items', () => {
+    expect(calculatePrice(0, 10)).toBe("Invalid price!");
+});
+test('calculatePrice: Kshs. 1000000 by 10 items', () => {
+    expect(calculatePrice(1000000, 10)).toBe("Invalid price!");
+});
+test('calculatePrice: Kshs. 1400 by 0 items', () => {
+    expect(calculatePrice(1400, 0)).toBe(0);
+});
+test('calculatePrice: Kshs. 250 by -1 items', () => {
+    expect(calculatePrice(250, -1)).toBe("Invalid number of items!");
+});
+test('calculatePrice: Kshs. 450 by 15 items', () => {
+    expect(calculatePrice(450, 15)).toBe("Invalid number of items!");
 });
