@@ -7,12 +7,23 @@ const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const { v4: uuidv4 } = require('uuid');
 const {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom} = require('./validate');
 
+//for live connection:
+var livereload = require("livereload");
+var connectLiveReload = require("connect-livereload");
+const liveReloadServer = livereload.createServer();
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 100);
+});
+app.use(connectLiveReload());
+
 app.set('views', 'views');
 app.set('view engine', 'hbs');
 app.use(express.static('public'));
 
 app.get('/', function (request, response) {
-  response.render('home');
+  response.render('homePage');
 });
 
 app.post('/overviewPage', urlEncodedParser, function (request, response) {
@@ -28,31 +39,31 @@ app.post('/overviewPage', urlEncodedParser, function (request, response) {
   let verify_Room = checkRoom(room);
 
   if(verify_Name==="Name already exists!"){
-    response.render('home', {
+    response.render('homePage', {
       errorMessage: 'Username already exists!',
     });
   }
   else if(verify_Name==="Name doesn't exist!"){
     if(verify_Email==="Email already exists!"){
-      response.render('home', {
+      response.render('homePage', {
         errorMessage: 'Email already exists!',
       });
     }
     else{
       if(verify_USIU_Email==="Invalid email!"){
-        response.render('home', {
+        response.render('homePage', {
           errorMessage: 'Wrong email format!',
         });
       }
       else{
         if(verify_Password==="Wrong!"){
-          response.render('home', {
+          response.render('homePage', {
             errorMessage: 'Password must be at least 8 characters long!',
           });
         }
         else{
           if(verify_Room==="Wrong!"){
-            response.render('home', {
+            response.render('homePage', {
               errorMessage: 'No such room!',
             });
           }
@@ -67,6 +78,14 @@ app.post('/overviewPage', urlEncodedParser, function (request, response) {
 
 app.get('/overviewPage', urlEncodedParser, function (request, response) {
     response.render('overviewPage');
+});
+
+app.get('/menu', function (request, response) {
+  response.render('overviewPage');
+});
+
+app.get('/contact', function (request, response) {
+  response.render('contact');
 });
 
 app.listen(port, () => {

@@ -1,15 +1,86 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Overview Page</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+<title>Menu</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+<link rel="stylesheet" type="text/css" href="../styles/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+
+<script>
+
+</script>
+
 </head>
-
 <body>
-  <h1 class="main">
-    Nothing Yet!
-  </h1>
-</body>
+<div>
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+            <div class="w3-right w3-hide-small">
+            <a href="menu" class="w3-bar-item w3-button">MENU</a>
+            <a href="contact" class="w3-bar-item w3-button">CONTACT</a>
+            </div>
+        </div>
+    </div>
 
+<hr>
+    <div class="w3-row w3-padding-64" id="menu">
+      <div class="w3-col l6 w3-padding-large">
+        <h1 class="w3-center">Our Main Meals</h1><br>
+        <h4>White Rice with Beans</h4>
+        <p class="w3-text-grey">Get yourself a nutritious meal with the cheapest price  <br><strong><em>Kshs. 250</em></strong></p><br>
+      
+        <h4>Chapati with Githeri</h4>
+        <p class="w3-text-grey">This package comes with 4 Chapatis and Githeri (beans and maize) <br><strong><em>Kshs. 260</em></strong></p>    
+      
+        <h4>Chips and Fillet</h4>
+        <p class="w3-text-grey">Enjoy the ordinary but with a little style (comes with 2 fillets) <br><strong><em>Kshs. 500</em></strong></p><br>
+      
+        <h4>Mashed Potatoes and Beef Stew</h4>
+        <p class="w3-text-grey">Get yourself some tasty soup with easy-to-chew carbs <br><strong><em>Kshs. 550</em></strong></p><br>
+      
+        <h4>Saffron Rice with Whole Fish</h4>
+        <p class="w3-text-grey">Ever tasted the best rice in West Africa and an entire Fish all in one meal? <br><strong><em>Kshs. 600</em></strong></p><br>
+      
+      </div>
+    
+      <div class="w3-col l6 w3-padding-large">
+        <button onclick="oneadd()" id="oneadd" style="margin-top:150px;">+</button>
+        <button id="oneremove">-</button>
+        <input disabled id="oneshow">
+        <br>
+        <button onclick="twoadd()" id="twoadd" style="margin-top:100px">+</button>
+        <button id="tworemove">-</button>
+        <input disabled id="twoshow">
+        <br>
+        <button onclick="threeadd()" style="margin-top:100px">+</button>
+        <button id="threeremove">-</button>
+        <input disabled id="threeshow">
+        <br>
+        <button style="margin-top:100px">+</button>
+        <button id="fourremove">-</button>
+        <input disabled id="fourshow">
+        <br>
+        <button style="margin-top:100px">+</button>
+        <button id="fiveremove">-</button>
+        <input disabled id="fiveshow">
+      </div>
+
+      <div class="w3-col l6 w3-padding-large">
+        <img src="../images/table.jpg" class="w3-round w3-image w3-opacity-min" alt="Menu" style="height:70vh;float:right;margin-top:-600px;margin-bottom:0vh;">
+      </div>
+    </div>
+
+  <hr>
+  let one = 0
+  let two = 0
+  let three = 0
+  function oneadd(){
+    console.log("works")
+    document.getElementById("oneshow").value = "one"
+  }
+</div>
+</div>
+</body>
 </html>
