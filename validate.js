@@ -66,4 +66,14 @@ function checkRoom(room){
     return ("Wrong!")
 }
 
-module.exports = {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom};
+function calculatePrice(price, total){
+    if(price<=0 || price>2000){
+        return "Invalid price!"
+    }
+    if(total<0 || total>10){
+        return "Invalid number of items!"
+    }
+    return price*total
+}
+
+module.exports = {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom, calculatePrice};
