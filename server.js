@@ -88,6 +88,18 @@ app.get('/contact', function (request, response) {
   response.render('contact');
 });
 
+app.post('/calculate', urlEncodedParser, function (request, response) {
+  const total = request.body.total.split(",");
+  const one = total[0];
+  const two = total[1];
+  const three = total[2];
+  const four = total[3];
+  const five = total[4];
+  const prices = [250, 260, 500, 550, 600]
+  console.log(total)
+  
+});
+
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
