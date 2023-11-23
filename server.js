@@ -96,7 +96,7 @@ app.post('/calculate', urlEncodedParser, function (request, response) {
   const four = total[3];
   const five = total[4];
   const prices = [250, 260, 500, 550, 600]
-  response.render('charges');
+  response.render('charges', {"message":total});
 });
 
 app.listen(port, () => {
