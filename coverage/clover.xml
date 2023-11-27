@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1701081224210" clover="3.2.0">
-  <project timestamp="1701081224210" name="All files">
+<coverage generated="1701086712470" clover="3.2.0">
+  <project timestamp="1701086712471" name="All files">
     <metrics statements="50" coveredstatements="50" conditionals="36" coveredconditionals="36" methods="10" coveredmethods="10" elements="96" coveredelements="96" complexity="0" loc="50" ncloc="50" packages="1" files="1" classes="1"/>
     <file name="validate.js" path="C:\Users\Naim\Desktop\Food-Order-System\validate.js">
       <metrics statements="50" coveredstatements="50" conditionals="36" coveredconditionals="36" methods="10" coveredmethods="10"/>
