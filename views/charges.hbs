@@ -8,6 +8,54 @@
 <link rel="stylesheet" type="text/css" href="../styles/style.css">
 </head>
 <body>
-<h1>{{message}}</h1>
+<div>
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+            <div class="w3-right w3-hide-small">
+            <a href="menu" class="w3-bar-item w3-button">MENU</a>
+            <a href="contact" class="w3-bar-item w3-button">CONTACT</a>
+            </div>
+        </div>
+    </div>
+
+<div class="w3-container w3-padding-64" id="contact">
+    <h1>Charges</h1><br>
+    <p class="w3-text-blue-grey w3-large"><b>Charges List</b></p>
+    <form action="mailto:nsalim@usiu.ac.ke">
+
+        <if {{"message"}}>
+            {{message}}
+        </if>
+        
+        <p !{{"message"}}>
+            <div style="float:left;">
+                <p {{#each menu}}>
+                    {{this}}
+                </p {{/each}}>
+            </div>
+            <div style="float:left; margin-left: 1%">
+                <p {{#each prices}}>
+                    @ Kshs. {{this}}
+                </p {{/each}}>
+            </div>
+            <div style="float:left; margin-left: 1%">
+                <p {{#each items}}>
+                    for {{this}} number of items
+                </p {{/each}}>
+            </div>
+            <div style="float:left; margin-left: 1%">
+                <p {{#each total}}>
+                    = Kshs. {{this}}
+                </p {{/each}}>
+            </div>
+        </p>
+
+        <div style="clear:both;">
+            <p style="font-weight: bolder;">Total price: Kshs. {{newtotal}}</p>
+        </div>
+        <p><button class="w3-button w3-light-grey w3-section" type="submit">CHECKOUT</button></p>
+    </form>
+</div>
+</div>
 </body>
 </html>

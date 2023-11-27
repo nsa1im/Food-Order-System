@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const { v4: uuidv4 } = require('uuid');
-const {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom} = require('./validate');
+const {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom, calculatePrices, calculateTotal} = require('./validate');
 
 //for live connection:
 var livereload = require("livereload");
@@ -89,14 +89,26 @@ app.get('/contact', function (request, response) {
 });
 
 app.post('/calculate', urlEncodedParser, function (request, response) {
-  const total = request.body.total.split(",");
-  const one = total[0];
-  const two = total[1];
-  const three = total[2];
-  const four = total[3];
-  const five = total[4];
+  const itemsString = request.body.total.split(",");
+  const menu = ["White Rice with Beans", "Chapati with Githeri", "Chips and Fillet", "Mashed Potatoes and Beef Stew", "Saffron Rice with Whole Fish"]
+  let items = []
+  let newtotal = ''
+  for(let i=0; i<itemsString.length; i++){
+    items.push(parseInt(itemsString[i]))
+  }
   const prices = [250, 260, 500, 550, 600]
-  response.render('charges', {"message":total});
+  let calculateTotalArray = calculatePrices(prices, items)
+  if(calculateTotalArray === "Input numbers only!" || 
+      calculateTotalArray === "Invalid price!" || 
+      calculateTotalArray === "Invalid number of items!" ||
+      calculateTotalArray === "Not arrays!" ||
+      calculateTotalArray === "Wrong array sizes!"){
+    response.render('charges', {"message":calculateTotalArray});
+  }
+  else{
+    newtotal = calculateTotal(calculateTotalArray)
+    response.render('charges', {"items":items, "prices":prices, "total":calculateTotalArray, "newtotal":newtotal, "menu":menu});
+  }
 });
 
 app.listen(port, () => {

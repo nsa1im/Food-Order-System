@@ -66,14 +66,52 @@ function checkRoom(room){
     return ("Wrong!")
 }
 
-function calculatePrice(price, total){
+function calculatePrice(price, item){
+    if(typeof(price)!=="number" || typeof(item)!=="number"){
+        return "Input numbers only!"
+    }
     if(price<=0 || price>2000){
         return "Invalid price!"
     }
-    if(total<0 || total>10){
+    if(item<0 || item>10){
         return "Invalid number of items!"
     }
-    return price*total
+    return price*item
 }
 
-module.exports = {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom, calculatePrice};
+function calculatePrices(prices, items){
+    if(typeof(prices) !== "object" || typeof(items) !== "object"){
+        return "Not arrays!"
+    }
+    if(prices.length !== items.length){
+        return "Wrong array sizes!"
+    }
+    let alltotal = []
+    for(let i=0; i<prices.length; i++){
+        let total = calculatePrice(prices[i], items[i])
+        if(typeof(total) !== "number"){
+            return total
+        }
+        alltotal.push(total)
+    }
+    return alltotal
+}
+
+function calculateTotal(totalArray){
+    let sum = 0
+    if(typeof(totalArray) !== "object"){
+        return "Not an array!"
+    }
+    for(let i=0; i<totalArray.length; i++){
+        if(typeof(totalArray[i]) !== "number"){
+            return "Input numbers only!"
+        }
+        sum += totalArray[i]
+    }
+    if(sum > 20000){
+        return "Too expensive!"
+    }
+    return sum
+}
+
+module.exports = {checkNameExists, checkEmailExists, checkEmailUSIU, checkPassword, checkRoom, calculatePrice, calculatePrices, calculateTotal};
